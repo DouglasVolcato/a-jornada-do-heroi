@@ -94,4 +94,18 @@ class HtmlElement {
     const elementId = this.elementId;
     document.getElementById(elementId).addEventListener(type, callBackFunction);
   }
+
+  /**
+   * @param function callBackFunction
+   * @param string type
+   */
+  addEventListenerToChildren(callBackFunction, type = "click") {
+    const elementId = this.elementId;
+    const children = document.getElementById(elementId).children;
+    if (children) {
+      Array.from(children).forEach((element) => {
+        element.addEventListener(type, callBackFunction);
+      });
+    }
+  }
 }
