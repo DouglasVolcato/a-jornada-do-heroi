@@ -1,4 +1,4 @@
-class PrimaryBackup {
+class PlayerStatusBackup {
   constructor() {
     this.name = "";
     this.level = 1;
