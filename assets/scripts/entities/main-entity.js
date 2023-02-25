@@ -75,6 +75,11 @@ class MainEntity {
   phrases;
 
   /**
+   * @type Array
+   */
+  attackNames;
+
+  /**
    *
    * @param String name
    * @param String description
@@ -91,6 +96,7 @@ class MainEntity {
    * @param Integer lifePotion
    * @param Integer group
    * @param Array phrases
+   * @param Array attackNames
    */
   constructor(
     name,
@@ -107,7 +113,8 @@ class MainEntity {
     amulet,
     lifePotion,
     group,
-    phrases
+    phrases,
+    attackNames
   ) {
     this.name = name;
     this.description = description;
@@ -124,6 +131,7 @@ class MainEntity {
     this.lifePotion = lifePotion;
     this.group = group;
     this.phrases = phrases;
+    this.attackNames = attackNames;
   }
 
   getStatus() {
@@ -296,9 +304,20 @@ class MainEntity {
   }
 
   /**
+   * @returns string
+   */
+  getAttackName() {
+    const attackNames = this.attackNames;
+    const attackNameLenght = this.attackNames.length();
+    const aleatoryAttack = Math.floor(Math.random() * attackNameLenght);
+
+    return attackNames[aleatoryAttack];
+  }
+
+  /**
    * @returns String
    */
-  speack() {
+  speak() {
     const phrases = this.phrases;
     if (this.phrases.length > 0) {
       const aleatoryNumber = Math.floor(Math.random() * this.phrases.length);
