@@ -1,3 +1,6 @@
+/**
+ * @returns MainEntity
+ */
 function makeElfoDaFlorestaFactory() {
   const elfoDaFloresta = new MainEntity(
     "Elfo da Floresta",

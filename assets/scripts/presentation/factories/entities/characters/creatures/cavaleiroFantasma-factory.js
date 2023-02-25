@@ -1,3 +1,6 @@
+/**
+ * @returns MainEntity
+ */
 function makeCavaleiroFantasmaFactory() {
   const cavaleiroFantasma = new MainEntity(
     "Cavaleiro Fantasma",

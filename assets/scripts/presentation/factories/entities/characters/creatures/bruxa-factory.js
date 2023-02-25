@@ -1,3 +1,6 @@
+/**
+ * @returns MainEntity
+ */
 function makeBruxaFactory() {
   const bruxa = new MainEntity(
     "Bruxa",

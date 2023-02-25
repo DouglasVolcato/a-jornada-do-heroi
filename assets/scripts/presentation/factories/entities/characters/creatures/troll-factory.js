@@ -1,3 +1,6 @@
+/**
+ * @returns MainEntity
+ */
 function makeTrollFactory() {
   const troll = new MainEntity(
     "Elfo da Floresta",

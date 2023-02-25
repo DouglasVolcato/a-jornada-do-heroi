@@ -1,3 +1,6 @@
+/**
+ * @returns MainEntity
+ */
 function makeDragaoFactory() {
   const dragao = new MainEntity(
     "Dragão",

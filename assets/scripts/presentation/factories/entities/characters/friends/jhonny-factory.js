@@ -1,3 +1,6 @@
+/**
+ * @returns MainEntity
+ */
 function makeJhonnyFactory() {
   const jhonny = new MainEntity(
     "Jhonny",
