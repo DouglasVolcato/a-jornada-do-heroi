@@ -5,4 +5,4 @@ const gameStatus = makeGameStatusFactory(player);
 const enemy = makeGoblinFactory();
 const battle = makeBattleControllerFactory(enemy, gameStatus);
 
-battle.start();
+// battle.start();
