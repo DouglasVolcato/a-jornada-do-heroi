@@ -7,7 +7,7 @@ class InsertOptionsUseCase {
     optionsDiv.deleteChildren();
 
     options.map((option) => {
-      screen.insertHtml(
+      optionsDiv.insertHtml(
         `<button value="${option.value}">${option.name}</button>`
       );
     });
