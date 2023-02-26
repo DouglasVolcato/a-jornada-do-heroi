@@ -5,11 +5,6 @@ class HistoryController {
   history;
 
   /**
-   * @type MainEntity player
-   */
-  player;
-
-  /**
    * @type GameStatus gameStatus
    */
   gameStatus;
@@ -41,7 +36,6 @@ class HistoryController {
 
   /**
    * @param array history
-   * @param MainEntity player
    * @param GameStatus gameStatus
    * @param SelectOptionUseCase selectOptionUseCase
    * @param InsertOptionsUseCase insertOptionsUseCase
@@ -49,14 +43,12 @@ class HistoryController {
    */
   constructor(
     history,
-    player,
     gameStatus,
     selectOptionUseCase,
     insertOptionsUseCase,
     insertTextUseCase
   ) {
     this.history = history;
-    this.player = player;
     this.gameStatus = gameStatus;
     this.currentPart = 0;
     this.selectedOption = 0;
@@ -65,37 +57,33 @@ class HistoryController {
     this.insertTextUseCase = insertTextUseCase;
   }
 
-  present() {
+  /**
+   * @returns boolean
+   */
+  start() {
     const index = this.currentPart;
     const selectedOption = this.selectedOption;
-    const player = this.player;
     const gameStatus = this.gameStatus;
-    let end = false;
+    const details = this.history[index].execute(selectedOption, gameStatus);
 
-    const details = this.history[index].execute(
-      selectedOption,
-      player,
-      gameStatus
-    );
-
-    this.insertTextUseCase(details.text);
-    this.insertOptionsUseCase(details.options);
+    this.insertTextUseCase.execute(details.text);
+    this.insertOptionsUseCase.execute(details.options);
 
     if (index === this.history.length) {
-      end = true;
       this.selectOptionUseCase.execute(() => {
         alert("Final");
       });
-    } else {
-      this.selectOptionUseCase.execute(this.setSelectedOption);
-    }
 
-    return end;
+      return true;
+    }
+    this.selectOptionUseCase.execute(this.setSelectedOption);
+
+    return false;
   }
 
   setSelectedOption(selectedOption) {
     this.selectedOption = selectedOption;
-    this.present();
+    this.start();
   }
 }
 
@@ -113,7 +101,7 @@ class HistoryController {
 //     },
 //   },
 //   {
-//     execute: function (selectedOption, player, gameStatus) {
+//     execute: function (selectedOption, gameStatus) {
 //       return {
 //         text: `You choose ${option}`,
 //         options: [
