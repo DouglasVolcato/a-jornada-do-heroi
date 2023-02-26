@@ -35,18 +35,25 @@ class HistoryController {
   insertTextUseCase;
 
   /**
+   * @type ClearScreenUseCase
+   */
+  clearScreenUseCase;
+
+  /**
    * @param array history
    * @param GameStatus gameStatus
    * @param SelectOptionUseCase selectOptionUseCase
    * @param InsertOptionsUseCase insertOptionsUseCase
    * @param InsertTextUseCase insertTextUseCase
+   * @param ClearScreenUseCase clearScreenUseCase
    */
   constructor(
     history,
     gameStatus,
     selectOptionUseCase,
     insertOptionsUseCase,
-    insertTextUseCase
+    insertTextUseCase,
+    clearScreenUseCase
   ) {
     this.history = history;
     this.gameStatus = gameStatus;
@@ -55,12 +62,15 @@ class HistoryController {
     this.selectOptionUseCase = selectOptionUseCase;
     this.insertOptionsUseCase = insertOptionsUseCase;
     this.insertTextUseCase = insertTextUseCase;
+    this.clearScreenUseCase = clearScreenUseCase;
   }
 
   /**
    * @returns boolean
    */
   start() {
+    this.clearScreenUseCase.execute();
+
     const index = this.currentPart;
     const selectedOption = this.selectedOption;
     const gameStatus = this.gameStatus;

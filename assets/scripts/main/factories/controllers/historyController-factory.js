@@ -7,12 +7,14 @@ function makeHistoryControllerFactory(history, gameStatus) {
   const selectOptionUseCase = new SelectOptionUseCase();
   const insertOptionsUseCase = new InsertOptionsUseCase();
   const insertTextUseCase = new InsertTextUseCase();
+  const clearScreenUseCase = new ClearScreenUseCase();
 
   return new HistoryController(
     history,
     gameStatus,
     selectOptionUseCase,
     insertOptionsUseCase,
-    insertTextUseCase
+    insertTextUseCase,
+    clearScreenUseCase
   );
 }

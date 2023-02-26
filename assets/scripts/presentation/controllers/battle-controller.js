@@ -30,18 +30,25 @@ class BattleController {
   insertTextUseCase;
 
   /**
+   * @type ClearScreenUseCase
+   */
+  clearScreenUseCase;
+
+  /**
    * @param MainEntity enemy
    * @param GameStatus gameStatus
    * @param SelectOptionUseCase selectOptionUseCase
    * @param InsertOptionsUseCase insertOptionsUseCase
    * @param InsertTextUseCase insertTextUseCase
+   * @param ClearScreenUseCase clearScreenUseCase
    */
   constructor(
     enemy,
     gameStatus,
     selectOptionUseCase,
     insertOptionsUseCase,
-    insertTextUseCase
+    insertTextUseCase,
+    clearScreenUseCase
   ) {
     this.enemy = enemy;
     this.gameStatus = gameStatus;
@@ -49,12 +56,15 @@ class BattleController {
     this.selectOptionUseCase = selectOptionUseCase;
     this.insertOptionsUseCase = insertOptionsUseCase;
     this.insertTextUseCase = insertTextUseCase;
+    this.clearScreenUseCase = clearScreenUseCase;
   }
 
   /**
    * @returns boolean
    */
   enemyTurn() {
+    this.clearScreenUseCase.execute();
+
     const enemyName = this.enemy.getStatus().name;
     const enemyAttack = this.enemy.getAttackName();
     const enemyDamage = this.enemy.dealDamage();
@@ -96,6 +106,8 @@ class BattleController {
    * @returns boolean
    */
   playerTurn() {
+    this.clearScreenUseCase.execute();
+
     const selectedOption = this.selectedOption;
     const playerDamage = this.gameStatus().getPlayer().dealDamage();
     const damageTaken = this.enemy().takeDamage(playerDamage);
