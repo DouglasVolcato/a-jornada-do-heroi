@@ -68,7 +68,7 @@ class HistoryController {
   /**
    * @returns boolean
    */
-  start() {
+  start = () => {
     this.clearScreenUseCase.execute();
 
     const index = this.currentPart;
@@ -89,12 +89,12 @@ class HistoryController {
     this.selectOptionUseCase.execute(this.setSelectedOption);
 
     return false;
-  }
+  };
 
-  setSelectedOption(selectedOption) {
+  setSelectedOption = (selectedOption) => {
     this.selectedOption = selectedOption;
     this.start();
-  }
+  };
 }
 
 // object format:

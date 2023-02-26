@@ -62,7 +62,7 @@ class BattleController {
   /**
    * @returns boolean
    */
-  enemyTurn() {
+  enemyTurn = () => {
     this.clearScreenUseCase.execute();
 
     const enemyName = this.enemy.getStatus().name;
@@ -84,6 +84,7 @@ class BattleController {
     const playerDead = this.gameStatus.getPlayer().getLife() <= 0;
 
     if (playerDead) {
+      this.insertTextUseCase.execute("<br>");
       this.insertTextUseCase.execute("Você morreu.");
       alert("Você morreu.");
 
@@ -97,30 +98,30 @@ class BattleController {
     this.selectOptionUseCase.execute(this.setSelectedOption);
 
     return false;
-  }
+  };
 
-  setSelectedOption(selectedOption) {
+  setSelectedOption = (selectedOption) => {
     this.selectedOption = selectedOption;
     this.playerTurn();
-  }
+  };
 
   /**
    * @returns boolean
    */
-  playerTurn() {
+  playerTurn = () => {
     this.clearScreenUseCase.execute();
 
     const selectedOption = this.selectedOption;
-    const playerDamage = this.gameStatus().getPlayer().dealDamage();
-    const damageTaken = this.enemy().takeDamage(playerDamage);
+    const playerDamage = this.gameStatus.getPlayer().dealDamage();
+    const damageTaken = this.enemy.takeDamage(playerDamage);
     const playerLife = this.gameStatus.getPlayer().getLife();
     const enemyLife = this.enemy.getLife();
     const enemyName = this.enemy.getStatus().name;
 
-    this.insertTextUseCase.execute(`Você ataca.`);
-    this.insertTextUseCase.execute(
-      `${enemyName} levou de ${damageTaken} dano.`
-    );
+    this.insertTextUseCase.execute(`Você ataca`);
+    this.insertTextUseCase.execute("<br>");
+    this.insertTextUseCase.execute(`${enemyName} levou de ${damageTaken} dano`);
+    this.insertTextUseCase.execute("<br>");
     this.insertTextUseCase.execute(`${enemyName}: ${enemyLife}`);
     this.insertTextUseCase.execute(`Você: ${playerLife}`);
     this.insertOptionsUseCase.execute([{ name: "Continuar", value: 1 }]);
@@ -128,21 +129,22 @@ class BattleController {
     const enemyDead = this.enemy.getLife() <= 0;
 
     if (enemyDead) {
+      this.insertTextUseCase.execute("<br>");
       this.insertTextUseCase.execute("Você venceu.");
       alert("Você venceu.");
 
       return true;
     }
-    this.selectOptionUseCase.execute(this.setSelectedOption);
+    this.selectOptionUseCase.execute(this.continueOption);
 
     return false;
-  }
+  };
 
-  continueOption() {
+  continueOption = () => {
     this.enemyTurn();
-  }
+  };
 
-  start() {
+  start = () => {
     this.enemyTurn();
-  }
+  };
 }
