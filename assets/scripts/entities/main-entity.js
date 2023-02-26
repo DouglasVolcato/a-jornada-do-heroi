@@ -147,6 +147,10 @@ class MainEntity {
     };
   }
 
+  getLife() {
+    return this.life;
+  }
+
   increaseLevel() {
     this.level = this.level + 1;
     this.life = this.increaseLife(100);
@@ -276,6 +280,7 @@ class MainEntity {
 
   /**
    * @param Integer quantity
+   * @return Integer
    */
   takeDamage(quantity) {
     const aleatoryNumber = Math.floor(Math.random() * 2);
@@ -284,10 +289,15 @@ class MainEntity {
       if (quantity > this.defense) {
         const damageTaken = this.defense - quantity;
         this.life = this.life - damageTaken;
+        return damageTaken;
       }
     } else {
-      this.life = this.life - quantity / 2;
+      const damageTaken = quantity / 2;
+      this.life = this.life - damageTaken;
+      return damageTaken;
     }
+
+    return 0;
   }
 
   /**
