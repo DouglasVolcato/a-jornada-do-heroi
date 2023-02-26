@@ -104,7 +104,9 @@ class HtmlElement {
     const children = document.getElementById(elementId).children;
     if (children) {
       Array.from(children).forEach((element) => {
-        element.addEventListener(type, callBackFunction);
+        if (element.localName !== "input") {
+          element.addEventListener(type, callBackFunction);
+        }
       });
     }
   }
