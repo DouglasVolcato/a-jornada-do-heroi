@@ -73,9 +73,11 @@ class BattleController {
     const enemyLife = this.enemy.getLife();
 
     this.insertTextUseCase.execute(`${enemyName} ataca.`);
+    this.insertTextUseCase.execute("<br>");
     this.insertTextUseCase.execute(`${enemyName} usa ${enemyAttack}.`);
+    this.insertTextUseCase.execute("<br>");
     this.insertTextUseCase.execute(`Você levou de ${damageTaken} dano.`);
-    this.insertTextUseCase.execute("");
+    this.insertTextUseCase.execute("<br>");
     this.insertTextUseCase.execute(`${enemyName}: ${enemyLife}`);
     this.insertTextUseCase.execute(`Você: ${playerLife}`);
 
