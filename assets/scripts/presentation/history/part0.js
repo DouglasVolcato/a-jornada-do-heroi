@@ -1,4 +1,4 @@
-const chapter0 = [
+const part_0 = [
   {
     execute: function (selectedOption, inputText, gameStatus) {
       return {
@@ -43,12 +43,14 @@ const chapter0 = [
           .setDescription(
             "Um grande guerreiro, forte e destemido, em busca de uma boa aventura."
           );
+        gameStatus.getPlayer().setGender("M");
       } else {
         gameStatus
           .getPlayer()
           .setDescription(
             "Uma guerreira habilidosa e valente, em busca de sua jornada para se tornar heroína."
           );
+        gameStatus.getPlayer().setGender("F");
       }
 
       const name = gameStatus.getPlayer().getName();

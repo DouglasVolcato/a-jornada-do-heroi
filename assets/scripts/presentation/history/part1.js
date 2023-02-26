@@ -1,4 +1,4 @@
-const chapter1 = [
+const part_1 = [
   {
     execute: function (selectedOption, inputText, gameStatus) {
       return {
