@@ -10,6 +10,11 @@ class HistoryController {
   gameStatus;
 
   /**
+   * @type function
+   */
+  nextChapterCallBack;
+
+  /**
    * @type integer currentPart
    */
   currentPart;
@@ -57,6 +62,7 @@ class HistoryController {
   /**
    * @param array history
    * @param GameStatus gameStatus
+   * @param function nextChapterCallBack
    * @param SelectOptionUseCase selectOptionUseCase
    * @param InsertOptionsUseCase insertOptionsUseCase
    * @param InsertTextUseCase insertTextUseCase
@@ -67,6 +73,7 @@ class HistoryController {
   constructor(
     history,
     gameStatus,
+    nextChapterCallBack,
     selectOptionUseCase,
     insertOptionsUseCase,
     insertTextUseCase,
@@ -76,6 +83,7 @@ class HistoryController {
   ) {
     this.history = history;
     this.gameStatus = gameStatus;
+    this.nextChapterCallBack = nextChapterCallBack;
     this.currentPart = 0;
     this.selectedOption = 0;
     this.inputText = "";
@@ -116,7 +124,9 @@ class HistoryController {
     if (index === this.history.length - 1) {
       this.selectOptionUseCase.execute(() => {
         this.currentPart = this.currentPart + 1;
-        alert("Final");
+        if (this.nextChapterCallBack) {
+          this.nextChapterCallBack.start();
+        }
       });
 
       return true;

@@ -3,7 +3,11 @@
  * @param GameStatus gameStatus
  * @returns BattleController
  */
-function makeHistoryControllerFactory(history, gameStatus) {
+function makeHistoryControllerFactory(
+  history,
+  gameStatus,
+  nextChapterCallBack
+) {
   const selectOptionUseCase = new SelectOptionUseCase();
   const insertOptionsUseCase = new InsertOptionsUseCase();
   const insertTextUseCase = new InsertTextUseCase();
@@ -14,6 +18,7 @@ function makeHistoryControllerFactory(history, gameStatus) {
   return new HistoryController(
     history,
     gameStatus,
+    nextChapterCallBack,
     selectOptionUseCase,
     insertOptionsUseCase,
     insertTextUseCase,
