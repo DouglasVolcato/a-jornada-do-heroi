@@ -3,7 +3,7 @@
  * @param string playerDescription
  * @returns MainEntity
  */
-function makePlayerFactory(playerName, playerDescription) {
+function makePlayerFactory(playerName = "", playerDescription = "") {
   const player = new MainEntity(
     playerName,
     playerDescription,
