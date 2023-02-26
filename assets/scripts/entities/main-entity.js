@@ -287,7 +287,8 @@ class MainEntity {
     const successfulDefense = aleatoryNumber === 1;
     if (successfulDefense) {
       if (quantity > this.defense) {
-        const damageTaken = this.defense - quantity;
+        const damagePassed = quantity - this.defense;
+        const damageTaken = damagePassed > 0 ? damagePassed : 0;
         this.life = this.life - damageTaken;
         return damageTaken;
       }
@@ -318,7 +319,7 @@ class MainEntity {
    */
   getAttackName() {
     const attackNames = this.attackNames;
-    const attackNameLenght = this.attackNames.length();
+    const attackNameLenght = this.attackNames.length;
     const aleatoryAttack = Math.floor(Math.random() * attackNameLenght);
 
     return attackNames[aleatoryAttack];
