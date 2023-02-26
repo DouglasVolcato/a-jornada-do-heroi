@@ -3,94 +3,64 @@ const chapter0 = [
     execute: function (selectedOption, inputText, gameStatus) {
       return {
         text: [
-          "Era uma linda semana de primavera na terra de Blue, os pássaros cantavam, as flores desabrochavam e as pessoas estavam felizem e em paz....",
+          "<br>",
+          '<p align="center">===================</p>',
+          '<p align="center">A JORNADA DO HERÓI</p>',
+          '<p align="center">===================</p>',
+          "<br>",
+          "<br>",
+          '<p align="center">Digite o nome do(a) jogador(a) para começar: </p>',
         ],
-        options: [{ name: "Continuar", value: 1 }],
+        options: [],
         input: true,
       };
     },
   },
   {
     execute: function (selectedOption, inputText, gameStatus) {
+      gameStatus.getPlayer().setName(inputText);
+
       return {
         text: [
-          `Você, um conhecido guerreiro forte e destemido, teve de partir momentaneamente para ir comprar especiarias na cidade vizinha...`,
-        ],
-        options: [{ name: "Continuar", value: 1 }],
-      };
-    },
-  },
-  {
-    execute: function (selectedOption, inputText, gameStatus) {
-      return {
-        text: [
-          `Durante o caminho de volta, ao ver sua cidade surgindo no horizonte, percebe fumaça e destruição em grande parte dela. Você acelera seu cavalo...`,
-        ],
-        options: [{ name: "Continuar", value: 1 }],
-      };
-    },
-  },
-  {
-    execute: function (selectedOption, inputText, gameStatus) {
-      const playerName = gameStatus.getPlayer().getStatus().name;
-      return {
-        text: [
-          `Ao entrar em sua cidade, um guarda real vêm ao seu encontro e diz: '${playerName}, nosso rei precisa de sua presença o mais rápido possível!'`,
-        ],
-        options: [{ name: "Continuar", value: 1 }],
-      };
-    },
-  },
-  {
-    execute: function (selectedOption, inputText, gameStatus) {
-      return {
-        text: [
-          `Após uma breve conversa com o rei de Blue, descobre que o ataque à cidade foi feito pelo poderoso bruxo Mordog, o qual rouba a alma dos seres vivos para aumentar seu poder...`,
-        ],
-        options: [{ name: "Continuar", value: 1 }],
-      };
-    },
-  },
-  {
-    execute: function (selectedOption, inputText, gameStatus) {
-      return {
-        text: [
-          `O rei disse: \n'Dessa vez conseguimos conter Mordog e seu exército, mas com as almas que ele conseguiu tememos que venha mais forte da próxima vez.'`,
-        ],
-        options: [{ name: "Continuar", value: 1 }],
-      };
-    },
-  },
-  {
-    execute: function (selectedOption, inputText, gameStatus) {
-      const playerName = gameStatus.getPlayer().getStatus().name;
-      return {
-        text: [
-          `'${playerName}, você já fez parte de minha guarda real, é o único guerreiro que pode deter Mordog!'`,
-        ],
-        options: [{ name: "Continuar", value: 1 }],
-      };
-    },
-  },
-  {
-    execute: function (selectedOption, inputText, gameStatus) {
-      return {
-        text: [
-          `Você aceita a missão de ir atrás do bruxo. Antes de deixar o salão, o rei lhe oferece um mapa de onde possivelmente Mordog se esconde.`,
+          '<p align="center">Escolha seu personagem: </p>',
           "<br>",
-          "Você pega o mapa?",
+          "[1] Um grande guerreiro, forte e destemido, em busca de uma boa aventura.",
+          "<br>",
+          "[2] Uma guerreira habilidosa e valente, em busca de sua jornada para se tornar heroína.",
         ],
         options: [
-          { name: "[1]Sim", value: 1 },
-          { name: "[2]Não", value: 1 },
+          { name: "[1]", value: 1 },
+          { name: "[2]", value: 2 },
         ],
       };
     },
   },
   {
-    execute: function (selectedOption, gameStatus) {
+    execute: function (selectedOption, inputText, gameStatus) {
+      if (selectedOption === "1") {
+        gameStatus
+          .getPlayer()
+          .setDescription(
+            "Um grande guerreiro, forte e destemido, em busca de uma boa aventura."
+          );
+      } else {
+        gameStatus
+          .getPlayer()
+          .setDescription(
+            "Uma guerreira habilidosa e valente, em busca de sua jornada para se tornar heroína."
+          );
+      }
+
+      const name = gameStatus.getPlayer().getName();
+      const description = gameStatus.getPlayer().getDescription();
+
       return {
-        text: [`Você escolheu ${selectedOption}`],
+        text: [
+          "<br>",
+          `${name}: ${description}`,
+          "<br>",
+          "Sua aventura está prestes a começar...",
+        ],
         options: [{ name: "Continuar", value: 1 }],
       };
     },
