@@ -76,49 +76,29 @@ class HistoryController {
     const gameStatus = this.gameStatus;
     const details = this.history[index].execute(selectedOption, gameStatus);
 
-    this.insertTextUseCase.execute(details.text);
+    details.text.map((text) => {
+      this.insertTextUseCase.execute(text);
+    });
+
     this.insertOptionsUseCase.execute(details.options);
 
-    if (index === this.history.length) {
+    if (index === this.history.length - 1) {
       this.selectOptionUseCase.execute(() => {
+        this.currentPart = this.currentPart + 1;
         alert("Final");
       });
 
       return true;
     }
-    this.selectOptionUseCase.execute(this.setSelectedOption);
 
+    this.selectOptionUseCase.execute(this.setSelectedOption);
+    this.currentPart = this.currentPart + 1;
     return false;
   };
 
   setSelectedOption = (selectedOption) => {
-    this.selectedOption = selectedOption;
+    const selected = selectedOption.srcElement.innerText[1];
+    this.selectedOption = selected;
     this.start();
   };
 }
-
-// object format:
-// const chapter1 = [
-//   {
-//     execute: function () {
-//       return {
-//         text: "History text PART 1",
-//         options: [
-//           { name: "Yes", value: 1 },
-//           { name: "No", value: 2 },
-//         ],
-//       };
-//     },
-//   },
-//   {
-//     execute: function (selectedOption, gameStatus) {
-//       return {
-//         text: `You choose ${option}`,
-//         options: [
-//           { name: "Keep", value: 1 },
-//           { name: "Return", value: 2 },
-//         ],
-//       };
-//     },
-//   },
-// ];
