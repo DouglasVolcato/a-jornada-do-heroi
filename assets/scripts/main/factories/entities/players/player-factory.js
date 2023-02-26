@@ -28,7 +28,8 @@ function makePlayerFactory(playerName, playerDescription) {
       `Se continuarmos, só eu vou sair vivo dessa luta.`,
       `Está sendo um bom aquecimento, quando começamos a luta?`,
     ],
-    []
+    [],
+    true
   );
 
   return player;

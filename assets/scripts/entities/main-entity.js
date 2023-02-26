@@ -80,6 +80,11 @@ class MainEntity {
   attackNames;
 
   /**
+   * @type boolean
+   */
+  player;
+
+  /**
    *
    * @param String name
    * @param String description
@@ -97,6 +102,7 @@ class MainEntity {
    * @param Integer group
    * @param Array phrases
    * @param Array attackNames
+   * @param Boolean player
    */
   constructor(
     name,
@@ -114,7 +120,8 @@ class MainEntity {
     lifePotion,
     group,
     phrases,
-    attackNames
+    attackNames,
+    player = false
   ) {
     this.name = name;
     this.description = description;
@@ -132,6 +139,7 @@ class MainEntity {
     this.group = group;
     this.phrases = phrases;
     this.attackNames = attackNames;
+    this.player = player;
   }
 
   getStatus() {
@@ -293,7 +301,7 @@ class MainEntity {
         return damageTaken;
       }
     } else {
-      const damageTaken = quantity / 2;
+      const damageTaken = this.player ? quantity / 2 : quantity;
       this.life = this.life - damageTaken;
       return damageTaken;
     }
