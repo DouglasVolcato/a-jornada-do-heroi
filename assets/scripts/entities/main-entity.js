@@ -370,7 +370,7 @@ class MainEntity {
   /**
    * @param String gender
    */
-  getGender(gender) {
+  setGender(gender) {
     this.gender = gender;
   }
 
