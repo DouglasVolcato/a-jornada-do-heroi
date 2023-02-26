@@ -85,6 +85,11 @@ class MainEntity {
   player;
 
   /**
+   * @type string
+   */
+  gender;
+
+  /**
    *
    * @param String name
    * @param String description
@@ -103,6 +108,7 @@ class MainEntity {
    * @param Array phrases
    * @param Array attackNames
    * @param Boolean player
+   * @param String gender
    */
   constructor(
     name,
@@ -121,7 +127,8 @@ class MainEntity {
     group,
     phrases,
     attackNames,
-    player = false
+    player = false,
+    gender = ""
   ) {
     this.name = name;
     this.description = description;
@@ -140,8 +147,12 @@ class MainEntity {
     this.phrases = phrases;
     this.attackNames = attackNames;
     this.player = player;
+    this.gender = gender;
   }
 
+  /**
+   * @returns Object
+   */
   getStatus() {
     return {
       name: this.name,
@@ -155,6 +166,9 @@ class MainEntity {
     };
   }
 
+  /**
+   * @returns Integer
+   */
   getLife() {
     return this.life;
   }
@@ -344,5 +358,47 @@ class MainEntity {
     } else {
       return "";
     }
+  }
+
+  /**
+   * @returns String
+   */
+  getGender() {
+    return this.gender;
+  }
+
+  /**
+   * @param String gender
+   */
+  getGender(gender) {
+    this.gender = gender;
+  }
+
+  /**
+   * @returns String
+   */
+  getName() {
+    return this.name;
+  }
+
+  /**
+   * @param String name
+   */
+  setName(name) {
+    this.name = name;
+  }
+
+  /**
+   * @returns String
+   */
+  getDescription() {
+    return this.description;
+  }
+
+  /**
+   * @param String description
+   */
+  setDescription(description) {
+    this.description = description;
   }
 }
