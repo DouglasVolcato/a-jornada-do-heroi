@@ -10,9 +10,19 @@ class HistoryController {
   gameStatus;
 
   /**
-   * @type function
+   * @type HistoryController
    */
-  nextChapterCallBack;
+  nextPart1;
+
+  /**
+   * @type HistoryController
+   */
+  nextPart2;
+
+  /**
+   * @type HistoryController
+   */
+  nextPart3;
 
   /**
    * @type integer currentPart
@@ -62,7 +72,9 @@ class HistoryController {
   /**
    * @param array history
    * @param GameStatus gameStatus
-   * @param function nextChapterCallBack
+   * @param HistoryController nextPart1
+   * @param HistoryController nextPart2
+   * @param HistoryController nextPart3
    * @param SelectOptionUseCase selectOptionUseCase
    * @param InsertOptionsUseCase insertOptionsUseCase
    * @param InsertTextUseCase insertTextUseCase
@@ -73,7 +85,9 @@ class HistoryController {
   constructor(
     history,
     gameStatus,
-    nextChapterCallBack,
+    nextPart1,
+    nextPart2,
+    nextPart3,
     selectOptionUseCase,
     insertOptionsUseCase,
     insertTextUseCase,
@@ -83,7 +97,9 @@ class HistoryController {
   ) {
     this.history = history;
     this.gameStatus = gameStatus;
-    this.nextChapterCallBack = nextChapterCallBack;
+    this.nextPart1 = nextPart1;
+    this.nextPart2 = nextPart2;
+    this.nextPart3 = nextPart3;
     this.currentPart = 0;
     this.selectedOption = 0;
     this.inputText = "";
@@ -124,8 +140,22 @@ class HistoryController {
     if (index === this.history.length - 1) {
       this.selectOptionUseCase.execute(() => {
         this.currentPart = this.currentPart + 1;
-        if (this.nextChapterCallBack) {
-          this.nextChapterCallBack.start();
+        if (
+          this.nextPart3 &&
+          details.hasOwnProperty("alternativePart") &&
+          details.alternativePart === 3
+        ) {
+          this.nextPart3.start();
+        }
+        if (
+          this.nextPart2 &&
+          details.hasOwnProperty("alternativePart") &&
+          details.alternativePart === 2
+        ) {
+          this.nextPart2.start();
+        }
+        if (this.nextPart1) {
+          this.nextPart1.start();
         }
       });
 

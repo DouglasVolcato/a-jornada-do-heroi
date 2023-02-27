@@ -6,7 +6,9 @@
 function makeHistoryControllerFactory(
   history,
   gameStatus,
-  nextChapterCallBack
+  nextPart1,
+  nextPart2,
+  nextPart3
 ) {
   const selectOptionUseCase = new SelectOptionUseCase();
   const insertOptionsUseCase = new InsertOptionsUseCase();
@@ -18,7 +20,9 @@ function makeHistoryControllerFactory(
   return new HistoryController(
     history,
     gameStatus,
-    nextChapterCallBack,
+    nextPart1,
+    nextPart2,
+    nextPart3,
     selectOptionUseCase,
     insertOptionsUseCase,
     insertTextUseCase,

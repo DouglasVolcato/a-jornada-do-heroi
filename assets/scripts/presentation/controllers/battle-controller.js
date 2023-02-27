@@ -10,6 +10,21 @@ class BattleController {
   gameStatus;
 
   /**
+   * @type HistoryController
+   */
+  nextPart1;
+
+  /**
+   * @type HistoryController
+   */
+  nextPart2;
+
+  /**
+   * @type HistoryController
+   */
+  nextPart3;
+
+  /**
    * @type integer selectedOption
    */
   selectedOption;
@@ -45,6 +60,9 @@ class BattleController {
   constructor(
     enemy,
     gameStatus,
+    nextPart1,
+    nextPart2,
+    nextPart3,
     selectOptionUseCase,
     insertOptionsUseCase,
     insertTextUseCase,
@@ -52,6 +70,9 @@ class BattleController {
   ) {
     this.enemy = enemy;
     this.gameStatus = gameStatus;
+    this.nextPart1 = nextPart1;
+    this.nextPart2 = nextPart2;
+    this.nextPart3 = nextPart3;
     this.selectedOption = 0;
     this.selectOptionUseCase = selectOptionUseCase;
     this.insertOptionsUseCase = insertOptionsUseCase;
@@ -64,6 +85,16 @@ class BattleController {
    */
   enemyTurn = () => {
     this.clearScreenUseCase.execute();
+
+    const enemyDead = this.enemy.getLife() <= 0;
+
+    if (enemyDead) {
+      if (this.nextPart1) {
+        this.nextPart1.start();
+      }
+
+      return true;
+    }
 
     const enemyName = this.enemy.getStatus().name;
     const enemyAttack = this.enemy.getAttackName();
@@ -86,7 +117,10 @@ class BattleController {
     if (playerDead) {
       this.insertTextUseCase.execute("<br>");
       this.insertTextUseCase.execute("Você morreu.");
-      alert("Você morreu.");
+
+      if (this.nextPart2) {
+        this.nextPart2.start();
+      }
 
       return true;
     }
@@ -131,9 +165,6 @@ class BattleController {
     if (enemyDead) {
       this.insertTextUseCase.execute("<br>");
       this.insertTextUseCase.execute("Você venceu.");
-      alert("Você venceu.");
-
-      return true;
     }
     this.selectOptionUseCase.execute(this.continueOption);
 
