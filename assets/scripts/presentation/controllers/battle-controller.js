@@ -96,7 +96,7 @@ class BattleController {
       return true;
     }
 
-    const enemyName = this.enemy.getStatus().name;
+    const enemyName = this.enemy.getName();
     const enemyAttack = this.enemy.getAttackName();
     const enemyDamage = this.enemy.dealDamage();
     const damageTaken = this.gameStatus.getPlayer().takeDamage(enemyDamage);
@@ -107,7 +107,7 @@ class BattleController {
     this.insertTextUseCase.execute("<br>");
     this.insertTextUseCase.execute(`${enemyName} usa ${enemyAttack}.`);
     this.insertTextUseCase.execute("<br>");
-    this.insertTextUseCase.execute(`Você levou de ${damageTaken} dano.`);
+    this.insertTextUseCase.execute(`Você levou ${damageTaken} de dano.`);
     this.insertTextUseCase.execute("<br>");
     this.insertTextUseCase.execute(`${enemyName}: ${enemyLife}`);
     this.insertTextUseCase.execute(`Você: ${playerLife}`);
@@ -135,7 +135,7 @@ class BattleController {
   };
 
   setSelectedOption = (selectedOption) => {
-    this.selectedOption = selectedOption;
+    this.selectedOption = selectedOption.srcElement.innerText[1];
     this.playerTurn();
   };
 
@@ -145,27 +145,60 @@ class BattleController {
   playerTurn = () => {
     this.clearScreenUseCase.execute();
 
-    const selectedOption = this.selectedOption;
-    const playerDamage = this.gameStatus.getPlayer().dealDamage();
-    const damageTaken = this.enemy.takeDamage(playerDamage);
-    const playerLife = this.gameStatus.getPlayer().getLife();
-    const enemyLife = this.enemy.getLife();
-    const enemyName = this.enemy.getStatus().name;
+    if (this.selectedOption === "1") {
+      const playerDamage = this.gameStatus.getPlayer().dealDamage();
+      const damageTaken = this.enemy.takeDamage(playerDamage);
+      const playerLife = this.gameStatus.getPlayer().getLife();
+      const enemyLife = this.enemy.getLife();
+      const enemyName = this.enemy.getName();
 
-    this.insertTextUseCase.execute(`Você ataca`);
-    this.insertTextUseCase.execute("<br>");
-    this.insertTextUseCase.execute(`${enemyName} levou de ${damageTaken} dano`);
-    this.insertTextUseCase.execute("<br>");
-    this.insertTextUseCase.execute(`${enemyName}: ${enemyLife}`);
-    this.insertTextUseCase.execute(`Você: ${playerLife}`);
-    this.insertOptionsUseCase.execute([{ name: "Continuar", value: 1 }]);
-
-    const enemyDead = this.enemy.getLife() <= 0;
-
-    if (enemyDead) {
+      this.insertTextUseCase.execute(`Você ataca.`);
       this.insertTextUseCase.execute("<br>");
-      this.insertTextUseCase.execute("Você venceu.");
+      this.insertTextUseCase.execute(
+        `${enemyName} levou ${damageTaken} de dano.`
+      );
+      this.insertTextUseCase.execute("<br>");
+      this.insertTextUseCase.execute(`${enemyName}: ${enemyLife}`);
+      this.insertTextUseCase.execute(`Você: ${playerLife}`);
+      this.insertOptionsUseCase.execute([{ name: "Continuar", value: 1 }]);
+
+      const enemyDead = this.enemy.getLife() <= 0;
+
+      if (enemyDead) {
+        this.insertTextUseCase.execute("<br>");
+        this.insertTextUseCase.execute("Você venceu.");
+      }
+    } else if (this.selectedOption === "2") {
+      const phrase = this.gameStatus.getPlayer().speak();
+      const playerLife = this.gameStatus.getPlayer().getLife();
+      const enemyLife = this.enemy.getLife();
+      const enemyName = this.enemy.getName();
+
+      this.insertTextUseCase.execute("Você diz:");
+      this.insertTextUseCase.execute("<br>");
+      this.insertTextUseCase.execute(`'${phrase}'`);
+      this.insertTextUseCase.execute("<br>");
+      this.insertTextUseCase.execute(`${enemyName}: ${enemyLife}`);
+      this.insertTextUseCase.execute(`Você: ${playerLife}`);
+      this.insertOptionsUseCase.execute([{ name: "Continuar", value: 1 }]);
+    } else if (this.selectedOption === "3") {
+      const playerLife = this.gameStatus.getPlayer().getLife();
+      const { name, description, level, life, attack, defense, money, magic } =
+        this.enemy.getStatus();
+
+      this.insertTextUseCase.execute(`Nome: ${name}`);
+      this.insertTextUseCase.execute(`Descrição: ${description}`);
+      this.insertTextUseCase.execute(`Nível: ${level}`);
+      this.insertTextUseCase.execute(`Ataque: ${attack}`);
+      this.insertTextUseCase.execute(`Defesa: ${defense}`);
+      this.insertTextUseCase.execute(`Dinheiro: ${money}`);
+      this.insertTextUseCase.execute(`Magia: ${magic}`);
+      this.insertTextUseCase.execute("<br>");
+      this.insertTextUseCase.execute(`${name}: ${life}`);
+      this.insertTextUseCase.execute(`Você: ${playerLife}`);
+      this.insertOptionsUseCase.execute([{ name: "Continuar", value: 1 }]);
     }
+
     this.selectOptionUseCase.execute(this.continueOption);
 
     return false;
