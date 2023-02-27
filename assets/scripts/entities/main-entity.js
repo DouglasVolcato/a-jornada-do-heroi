@@ -315,7 +315,7 @@ class MainEntity {
         return damageTaken;
       }
     } else {
-      const damageTaken = this.player ? quantity / 2 : quantity;
+      const damageTaken = Math.floor(this.player ? quantity / 3 : quantity);
       this.life = this.life - damageTaken;
       return damageTaken;
     }
