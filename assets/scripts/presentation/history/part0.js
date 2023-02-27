@@ -1,4 +1,4 @@
-const part_0 = [
+const part0 = [
   {
     execute: function (selectedOption, inputText, gameStatus) {
       return {
