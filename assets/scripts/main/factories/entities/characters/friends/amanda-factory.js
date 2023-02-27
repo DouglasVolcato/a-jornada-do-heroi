@@ -18,7 +18,7 @@ function makeAmandaFactory() {
     0,
     0,
     [],
-    []
+    ["Soco normal"]
   );
 
   return amanda;

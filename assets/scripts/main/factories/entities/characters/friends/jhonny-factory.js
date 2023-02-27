@@ -18,7 +18,7 @@ function makeJhonnyFactory() {
     0,
     0,
     [],
-    []
+    ["Soco normal"]
   );
 
   return jhonny;
